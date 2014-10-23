@@ -1,0 +1,64 @@
+<div class="panel panel-primary">
+    <div class="panel-heading text-center">Party Wait List Entry</div>
+    <div class="panel-body">
+        <form name="partyForm" ng-submit="vm.addParty()"
+              class="form-inline party-form" role="form" novalidate>
+            <div class="form-group"
+                 ng-class="{'has-error':partyForm.partyName.$invalid && !partyForm.partyName.$pristine }">
+                <label class="sr-only" for="partyName">Party name</label>
+                <input ng-model="vm.newParty.name" type="text" class="form-control" id="partyName" name="partyName"
+                       required placeholder="Party name">
+                <span ng-show="partyForm.partyName.$error.required">*</span>
+            </div>
+            <div class="form-group" ng-class="{'has-error':partyForm.phone.$invalid && !partyForm.phone.$pristine }">
+                <label class="sr-only" for="phone">Phone number</label>
+                <input ng-model="vm.newParty.phone" type="tel" class="form-control" id="phone" name="phone" required
+                       ui-mask="1+(999) 999-9999">
+                <span ng-show="partyForm.phone.$error.required">*</span>
+            </div>
+            <div class="form-group"
+                 ng-class="{'has-error':partyForm.sizeOfParty.$invalid && !partyForm.sizeOfParty.$pristine }">
+                <label class="sr-only" for="sizeOfParty">Size</label>
+                <input ng-model="vm.newParty.size" type="number" min="1" max="12"
+                       class="form-control" id="sizeOfParty" name="sizeOfParty" required placeholder="Count">
+                <span ng-show="partyForm.sizeOfParty.$error.required">*</span>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                    ng-disabled="partyForm.$invalid">Add Party
+            </button>
+        </form>
+    </div>
+</div>
+<table class="table table-striped table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th>Done?</th>
+        <th>Info</th>
+        <th>Notified?</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="party in vm.parties">
+        <td>
+            <div>
+                <input type="checkbox"
+                       ng-model="party.done"
+                       ng-change="vm.updateParty(party)">
+                </input>
+            </div>
+        </td>
+        <td>
+            <party-name party="party"></party-name>
+        </td>
+        <td>{{party.notified}}</td>
+        <td>
+            <party-buttons
+                    party="party" 
+                    send="vm.sendTextMessage(party)" 
+                    remove="vm.removeParty(party)">
+            </party-buttons>
+        </td>
+    </tr>
+    </tbody>
+</table>

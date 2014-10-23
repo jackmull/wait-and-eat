@@ -1,0 +1,21 @@
+<div>
+    <td>
+        <input type='checkbox' ng-model='party.done'
+               ng-change='update({party:party})'/>
+    </td>
+    <td>
+        <strong>{{party.name}} ({{party.size}} people)</strong>
+
+        <div>
+            {{party.phone}}
+        </div>
+    </td>
+    <td>{{party.notified}}</td>
+    <td>
+        <div>
+            <button ng-click='send({party:party})' type='submit' class='btn btn-success'>Send SMS</button>
+            <button ng-click='remove({party:party})' type='submit' class='btn btn-danger'>Remove</button>
+        </div>
+    </td>
+</div>
+ 
